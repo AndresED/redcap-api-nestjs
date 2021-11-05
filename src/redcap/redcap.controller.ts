@@ -1,9 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters, UseInterceptors } from '@nestjs/common';
 import { RedcapService } from './redcap.service';
 import { CreateRedcapDto } from './dto/create-redcap.dto';
 import { UpdateRedcapDto } from './dto/update-redcap.dto';
-
+import { AppExceptionFilter } from '../shared/filters/app-exception.filter';
+import { ApiTags } from '@nestjs/swagger';
+import { ResponseInterceptor } from '../shared/interceptors/response.interceptor';
 @Controller('redcap')
+@ApiTags('Redcap')
+@UseFilters(new AppExceptionFilter())
+@UseInterceptors(ResponseInterceptor)
 export class RedcapController {
   constructor(private readonly redcapService: RedcapService) {}
 

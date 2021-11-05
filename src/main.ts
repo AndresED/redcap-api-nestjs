@@ -14,7 +14,6 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     app.use(helmet());
     app.enableCors();
-    // app.use(csurf());
     const PORT = process.env.PORT || 3000;
     app.use(json({ limit: '300mb' }));
     if(process.env.STAGE == 'production'){ 
@@ -30,19 +29,19 @@ async function bootstrap() {
     }
     app.useGlobalPipes(new ValidationPipe());
     const config = new DocumentBuilder()
-      .setTitle('SandWord ApiRest')
-      .setDescription('SandWord Api Rest V1')
+      .setTitle('Intellectus ApiRest')
+      .setDescription('Intellectus Api Rest V1')
       .setVersion('1.0')
       .build();
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('docs', app, document);
     await app.listen(PORT, async() => {
-      APP_LOGGER.info(`SandWord Api Server is running in port ${PORT}`)
-      APP_LOGGER.info(`SandWord Socket Server is running in port ${process.env.PORT_SOCKET}`)
+      APP_LOGGER.info(`Intellectus Api Server is running in port ${PORT}`)
+      APP_LOGGER.info(`Intellectus Socket Server is running in port ${process.env.PORT_SOCKET}`)
     });
   
   } catch (error) {
-    APP_LOGGER.error('Error initializing SandWord Api', error);
+    APP_LOGGER.error('Error initializing Intellectus Api', error);
   }
 }
 bootstrap();

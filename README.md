@@ -1,349 +1,75 @@
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
+</p>
 
-# Servicio Rest - SandWords
-
+[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
+[travis-url]: https://travis-ci.org/nestjs/nest
+[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
+[linux-url]: https://travis-ci.org/nestjs/nest
   
+  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
+<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
+<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
+<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
+<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
+<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
+  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-# Consideraciones
+## Description
 
-  
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-- El presente proyecto fue desarrollado en [NestJS](http://nestjs.com/)
+## Installation
 
-- Para la conexión al gestor de base de datos se uso a [Sequelize](https://sequelize.org/) como ORM en su versión para [Typescript](https://www.npmjs.com/package/sequelize-typescript)
-
-- Se usó como gestor de base de datos PostgresSQL aunque puede ser cambiado por otro gestor siempre y cuando sea uno relacional.
-
-- Se usó como servidor de correos a GMAIL.
-
-- Se uso el paquete [quicktumb](https://www.npmjs.com/package/quickthumb) para la optimización de imagenes. Se recomienda leer la documentación de esta para sacar el máximo provecho de las imágenes almacenadas en el api.
-
-# Instalación de dependencias
-
-- Para el desarrollo de la aplicación se uso yarn como gestor de dependencias pero tambien puede usarse npm.
-
-Para la instalación ejecutar `npm install` o `yarn install`
-
-- Quicktumb require la instalación de la dependencia llamada imagemagick a nivel de sistema operativo. Para instalar ejecutar el siguiente comando
-
+```bash
+$ npm install
 ```
 
-Ubuntu
+## Running the app
 
-apt-get install imagemagick
+```bash
+# development
+$ npm run start
 
-  
+# watch mode
+$ npm run start:dev
 
-Mac OS X
-
-brew install imagemagick
-
-  
-
-Fedora/CentOS
-
-yum install imagemagick
-
+# production mode
+$ npm run start:prod
 ```
 
-  
+## Test
 
-# Configuración
+```bash
+# unit tests
+$ npm run test
 
-Dividiremos la siguiente sección en los siguientes puntos:
+# e2e tests
+$ npm run test:e2e
 
-  
-
-- Configuración de la base de datos
-- Configuración de firebase y one signal
-- Configuración del servidor de correos
-- Configuración de las variables de entorno
-
-  
-
-1. **Configuración de la base de datos**
-
-  
-
-Como se mencionó en las consideraciones , estamos trabajando con postgresql como gestor de base de datos por lo que los scripts que se generaron para la creación de la base de datos están orientados con la sintaxis de este gestor. Si bien gracias al ORM podemos trabajar con diferentes gestores debes tener en consideración la sintaxis de los scripts que usaremos.
-
-Los scripts los encontrarán en el repositorio correspondiente a la base de datos. Ejecutarlos en el siguiente orden:
-- script.sql
-En el mismo repositorio se encuentra el diagrama de la BD el cual puede ser abierto con MySQL Workbench pero de todas maneras se esta subiendo el modelado en versión pdf.  
-
-
-2. **Configuración de Firebase y One Signal**
-
-Nos dirigimos a la [consola de firebase](https://console.firebase.google.com/) y le damos agregar proyecto
-
-![enter image description here](https://i.imgur.com/3aJmMUr.png)
-
-  
-
-Seguimos los pasos que nos indican para crear nuestro proyecto:
-
-![enter image description here](https://i.imgur.com/YCrrpBN.png)
-
-
-3. **Configuración del servidor de correos**
-
-  
-
-No hay mucha ciencia en esta sección para la configuración del servidor de correos haremos uso de la misma información que el mismo google nos da
-
-  
-
-- **servidor smtp:** smtp.gmail.com
-
-- **puerto:** 465
-
-- **ssl:** true
-
-- **usuario:** un correo de gmail
-
-- **contraseña:** una contraseña de aplicación generada
-
-para el correo de gmail.
-
-  
-
-Lo unico que se debe gestionar aqui es la clave de aplicación pero para ello recomendamos [leer la misma documentación que google nos da para ello.](https://support.google.com/mail/answer/185833?hl=es-419)
-
-**4. Configuración de las variables de entorno**
-
-Llegamos a la parte final de las configuraciones. Aqui colocaremos información de la conexion a la base de datos y información que en los pasos anteriores obtuvimos
-
-Como primera instancia creamos un archivo llamado .env en la raiz de la carpeta del api y copiamos el contenido del archivo llamado .env.example que esta en la raiz y que tiene la siguiente estructura:
-
-  
-
+# test coverage
+$ npm run test:cov
 ```
-# STAGE
-# VALUES: production, development
-STAGE = development
-  
-# DATABASE
-USERNAME_DB =
-DATABASE =
-PASSWORD_DB =
-HOST_DATABASE =
-DIALECT =
-TYPE_SGBD =
-LOGGIN_DATABASE =
-OPERATORSALIASES =
-PORT_DB =
 
-  
+## Support
 
-# SERVER
-PORT =
-PORT_SOCKET =
-# WEBAPP
-ROUTE_WEB_APP =
-# JWT
-SECRET = SECRET
-EXPIRESIN = 1d
-DEFAULTSTRATEGY = jwt
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-# STORAGE
-STORAGE =
-LIMIT_UPLOAD = 300mb
+## Stay in touch
 
-# MAIL
-MAIL_HOST =
-MAIL_SERVICE =
-MAIL_USER =
-MAIL_PASSWORD =
-MAIL_EMAIL_FR0M =
-MAIL_PORT =
-MAIL_SECURE =
-MAIL_REJECT_UNAUTHORIZED =
-`````
+- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-Pasaremos a explicar bloque por bloque este archivo y como configurarlo:
+## License
 
-  
-
-Como primer instancia tenemos el modo en que será ejecutada el api si
-
-bien en el package.json se han creado comandos en especifico para
-
-poder ejecutar ambos entornos esta variable nos permite a nivel de codigo realizar ciertas validaciones para la busqueda de path de archivos. Los valores que puede tomar son production y development.
-
-`````
-
-# STAGE
-
-# VALUES: production, development
-
-STAGE = development
-
-`````
-
-  
-
-El presente bloque hace referencia a la conexión a la base de datos , para tener una mayor referencia acerca de estas variables les recomendamo [leer la documentación de sequelize](https://sequelize.org/master/manual/dialect-specific-things.html)
-
-  
-
-`````
-
-# DATABASE
-
-USERNAME_DB = root
-
-DATABASE = birudb
-
-PASSWORD_DB = 123456
-
-HOST_DATABASE = localhost
-
-DIALECT = mysql
-
-TYPE_SGBD = mysql
-
-LOGGIN_DATABASE = false
-
-OPERATORSALIASES = false
-
-PORT_DB = 3306
-
-`````
-
-  
-
-El presente bloque hace referencia a los puertos que haran uso e servicio rest y el servidor de sockets. Pueden trabajar bajo el mismo puerto pero no se recomienda.
-
-  
-
-`````
-
-# SERVER
-
-PORT = 3000
-
-PORT_SOCKET = 5000
-
-`````
-
-  
-
-Una de las caracteristicas de la aplicación es el envio de emails para la recuperación de la contraseña. Ante esta operación el api envia un url para la recuperación pero para poder generar el enlace correctamente en este bloque debemos colocar el link de la aplicación ya subida a produccion o en desarrollo.
-
-`````
-
-# WEBAPP
-
-ROUTE_WEB_APP = http://localhost:4200
-
-`````
-
-  
-
-La aplicación para su seguridad hace uso de la generación de tokens mediante JWT en el presente bloque solicitamos necesaria para la generación de los tokens como son el secret que viene a ser una cadena alfanumerica que sirve para generar los tokens (se recomienda usar uno seguro que contenga numeros,letras,caracteres especiales,etc). el expiresin qu hace referencia al tieempo de vida del token y el defaultstrategy que en si es el tipo o método que usaremos para generar el token en nuestro caso estamos usando jwt.
-
-  
-
-`````
-
-# JWT
-
-SECRET = SECRET
-
-EXPIRESIN = 365d
-
-DEFAULTSTRATEGY = jwt
-
-`````
-
-  
-
-Una de las caracteristicas de la aplicación es que nos permite almacenar archivos y acceder a estos cuando se los requiera , para ello la manera como te los devuelve es como un enlace directo al api para ello se requiere especificar el url del api ya en production o desarrollo para que al momento de hacer una consulta te traiga correctamente el enlace del archivo al cual se quiere acceder.
-
-La variable LIMIT_UPLOAD hace mención al tamaño maximo de subida de un archivo.
-
-  
-
-`````
-
-# STORAGE
-
-STORAGE = http://localhost:3000/
-
-LIMIT_UPLOAD = 300mb
-
-`````
-
-  
-
-En esta sección usaremos los datos que nos proporciiona google asi como la contraseña que se genero anteriormente.
-
-`````
-
-# MAIL
-
-MAIL_HOST = smtp.gmail.com
-
-MAIL_SERVICE = gmail
-
-MAIL_USER = @gmail.com
-
-MAIL_PASSWORD = micorreo@gmail.com
-
-MAIL_EMAIL_FR0M = contacto@biru.com.pe
-
-MAIL_PORT = 465
-
-MAIL_SECURE = true
-
-MAIL_REJECT_UNAUTHORIZED = false
-
-`````
-
-
-Para finalizar necesitamos colocar el url de la base de datos de firebase
-
-`````
-
-#FIREBASE
-
-FIREBASE_DATABASE_URL = https://biru-7a6cb.firebaseio.com
-
-Servidor de desarrollo y Despliegue
-
-`````
-
-Para ello nos dirigimo a la consola de firebase , nos vamos a nuestro proyecto y en la opcion Descripción general y configuración de proyecto:
-
-  
-
-![enter image description here](https://i.imgur.com/TzGusBL.png)
-
-  
-
-En la pestaña cuentas de servicio encontraremos el databaseUrl, lo copiamos y pegamos en nuestra variable de entorno
-
-  
-
-![enter image description here](https://i.imgur.com/UnnefuF.png)
-
-  
-
-Realizado esto pasos correctamente ya podemos levantar nuestro servidor ya sea en desarrollo o producción
-
-  
-
-# Levantar el servidor
-
-  
-
-### Desarrollo
-
-`npm run start:dev` - Permite levantar el servidor de desarrollo que estará disponible en `http://localhost:3000/`
-
-### Producción
-
-`npm run start ` - Permite levantar el servidor de desarrollo que estará disponible en `http://localhost:3000/`
-
-  
-
-Deben tener en cuenta la variable de entorno STAGE al momento de ejecutar los comandos de lo contrario tendran errores.
+  Nest is [MIT licensed](LICENSE).

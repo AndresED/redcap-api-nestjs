@@ -20,23 +20,11 @@ export class EmailService {
                 const email = new Email();
                 let routeTemplate = '../src/shared/templates/welcome';
                 switch(tipoMensaje){
-                    case 'activate-account':
-                        routeTemplate = '../src/shared/templates/activate-account';
-                        break;
                     case 'welcome':
                         routeTemplate = '../src/shared/templates/welcome';
                         break;
                     case 'resetpassword':
                         routeTemplate = '../src/shared/templates/resetpassword';
-                        break;
-                    case 'resetpassword2':
-                        routeTemplate = '../src/shared/templates/resetpassword2';
-                        break;
-                    case 'validate-code':
-                        routeTemplate = '../src/shared/templates/validate-code';
-                        break;
-                    case 'transaction':
-                        routeTemplate = '../src/shared/templates/transaction';
                         break;
                 }
                 await email 
@@ -55,7 +43,7 @@ export class EmailService {
                                 tls: {
                                     rejectUnauthorized:  this. parseBoolean(process.env.MAIL_REJECT_UNAUTHORIZED)
                                 }
-                              });
+                            });
                             // configura los datos del correo
                             let mailOptions = {
                                 from: `Musa <${process.env.MAIL_EMAIL_FROM}>`,
