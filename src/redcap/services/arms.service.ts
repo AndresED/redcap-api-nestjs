@@ -74,7 +74,6 @@ export class ArmsRedcapService {
             }
         })
     }
-
     delete(arms: ArmsDeleteDto) {
         return new Promise(async (resolve, reject) => {
             try {
