@@ -1,11 +1,11 @@
 import { HttpService, Injectable } from '@nestjs/common';
-import { ArmsDeleteDto, UploadFileDto } from '../dto/create-redcap.dto';
+import { FilesDeleteDto, UploadFileDto } from '../dto/create-redcap.dto';
 import { APP_LOGGER } from '../../../logger/index';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 dotenv.config();
 @Injectable()
-export class ArmsRedcapService {
+export class FilesRedcapService {
     token: string;
     constructor(
         private readonly http: HttpService,
@@ -30,7 +30,7 @@ export class ArmsRedcapService {
                 const sheet_name_list = workbook.SheetNames;
                 const xlData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
                 const url = process.env.REDCAP_HOST + process.env.REDCAP_PATH;
-                const data = `token=${this.token}&data=${xlData}&content=arm&format=json&returnFormat=json`;
+                const data = `token=${this.token}&data=${xlData}&content=file&format=json&returnFormat=json`;
                 const config = {
                     headers: {
                         'Content-Type': `application/x-www-form-urlencoded`,
@@ -55,7 +55,7 @@ export class ArmsRedcapService {
         return new Promise(async (resolve, reject) => {
             try {
                 const url = process.env.REDCAP_HOST + process.env.REDCAP_PATH;
-                const data = `token=${this.token}&content=arm&format=json&returnFormat=json`;
+                const data = `token=${this.token}&content=file&format=json&returnFormat=json`;
                 const config = {
                     headers: {
                         'Content-Type': `application/x-www-form-urlencoded`,
@@ -74,12 +74,12 @@ export class ArmsRedcapService {
             }
         })
     }
-    delete(arms: ArmsDeleteDto) {
+    delete(files: FilesDeleteDto) {
         return new Promise(async (resolve, reject) => {
             try {
-                const armsArray = arms.arms.split(',');
+                const filesArray = files.files.split(',');
                 const url = process.env.REDCAP_HOST + process.env.REDCAP_PATH;
-                const data = `token=${this.token}&content=arm&arms=${armsArray}&format=json&returnFormat=json`;
+                const data = `token=${this.token}&content=file&files=${filesArray}&format=json&returnFormat=json`;
                 const config = {
                     headers: {
                         'Content-Type': `application/x-www-form-urlencoded`,
