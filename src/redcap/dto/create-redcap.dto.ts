@@ -12,3 +12,9 @@ export class ArmsDeleteDto {
     @IsNotEmpty()
     arms: string;
 }
+export class DagsDeleteDto {
+    @ApiPropertyOptional()
+    @IsString()
+    @IsNotEmpty()
+    dags: string;
+}
