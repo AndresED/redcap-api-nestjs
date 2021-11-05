@@ -1,39 +1,47 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters, UseInterceptors } from '@nestjs/common';
-import { RedcapService } from './redcap.service';
-import { CreateRedcapDto } from './dto/create-redcap.dto';
-import { UpdateRedcapDto } from './dto/update-redcap.dto';
 import { AppExceptionFilter } from '../shared/filters/app-exception.filter';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { ResponseInterceptor } from '../shared/interceptors/response.interceptor';
+import { ArmsRedcapService } from './services/arms.service';
+import { ArmsDeleteDto, UploadFileDto } from './dto/create-redcap.dto';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { arrayFiles, localOptions } from './multer.option';
+import { ProjectsRedcapService } from './services/projects.service';
 @Controller('redcap')
 @ApiTags('Redcap')
 @UseFilters(new AppExceptionFilter())
 @UseInterceptors(ResponseInterceptor)
 export class RedcapController {
-  constructor(private readonly redcapService: RedcapService) {}
+  constructor(
+    private readonly armsRedcapService: ArmsRedcapService,
+    private readonly projectsRedcapService: ProjectsRedcapService,
+    ) {}
 
-  @Post()
-  create(@Body() createRedcapDto: CreateRedcapDto) {
-    return this.redcapService.create(createRedcapDto);
+  
+  @Post('arms/import')
+  @ApiConsumes('multipart/form-data')
+  @UseInterceptors(FileFieldsInterceptor(arrayFiles, localOptions))
+  importArms(@Body() fileData: UploadFileDto) {
+    return this.armsRedcapService.import(fileData);
+  }
+  @Post('arms/export')
+  exportArms() {
+    return this.armsRedcapService.export();
   }
 
-  @Get()
-  findAll() {
-    return this.redcapService.findAll();
+  @Post('arms/delete')
+  deleteArms(@Body() arms: ArmsDeleteDto) {
+    return this.armsRedcapService.delete(arms);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.redcapService.findOne(+id);
+  @Post('project/import')
+  @ApiConsumes('multipart/form-data')
+  @UseInterceptors(FileFieldsInterceptor(arrayFiles, localOptions))
+  import(@Body() fileData: UploadFileDto) {
+    return this.projectsRedcapService.import(fileData);
   }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRedcapDto: UpdateRedcapDto) {
-    return this.redcapService.update(+id, updateRedcapDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.redcapService.remove(+id);
+  @Post('project/export')
+  export() {
+    return this.projectsRedcapService.export();
   }
 }

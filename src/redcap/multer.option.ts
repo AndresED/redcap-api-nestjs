@@ -11,7 +11,7 @@ export const localOptions: MulterOptions = {
     storage: diskStorage({
         destination: './uploads/uploads',
         filename: (req, file, cb) => {
-            let extValidas = ['.jpeg','.jpg','.png','.gif','.avi','.mp4','.mpeg','.mpeg4','.wmv','.JPEG','.JPG','.PNG','.GIF','.AVI','.MP4','.MPEG','.MPEG4','.WMV', '.mov', '.MOV'];
+            let extValidas = ['.csv','.json','.xml'];
             if (extValidas.indexOf(extname(file.originalname)) < 0) {
                 cb('valid extensions: ' + extValidas.join(', '));
                 return;

@@ -1,10 +1,14 @@
 import { HttpModule, Module } from '@nestjs/common';
-import { RedcapService } from './redcap.service';
 import { RedcapController } from './redcap.controller';
+import { ArmsRedcapService } from './services/arms.service';
+import { ProjectsRedcapService } from './services/projects.service';
 
 @Module({
   controllers: [RedcapController],
-  providers: [RedcapService],
+  providers: [
+    ArmsRedcapService,
+    ProjectsRedcapService
+  ],
   imports: [HttpModule],
 })
 export class RedcapModule {}

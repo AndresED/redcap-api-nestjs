@@ -58,6 +58,7 @@
         "simple-sha256": "^1.1.0",
         "swagger-ui-express": "^4.1.6",
         "typescript-logging": "^1.0.0",
+        "uniqid": "^5.4.0",
         "uuid": "^8.3.2",
         "xlsx": "^0.17.3"
     },
