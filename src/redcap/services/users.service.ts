@@ -1,11 +1,11 @@
 import { HttpService, Injectable } from '@nestjs/common';
-import { LogsDeleteDto, UploadFileDto } from '../dto/create-redcap.dto';
 import { APP_LOGGER } from '../../../logger/index';
+import { UploadFileDto } from '../dto/create-redcap.dto';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 dotenv.config();
 @Injectable()
-export class LogsRedcapService {
+export class UsersRedcapService {
     token: string;
     constructor(
         private readonly http: HttpService,
@@ -13,6 +13,30 @@ export class LogsRedcapService {
         this.token = process.env.REDCAP_API_TOKEN;
     }
 
+    export() {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const url = process.env.REDCAP_HOST + process.env.REDCAP_PATH;
+                const data = `token=${this.token}&content=user&format=json&returnFormat=json`;
+                const config = {
+                    headers: {
+                        'Content-Type': `application/x-www-form-urlencoded`,
+                        'Accept': 'application/json'
+                    }
+                }
+                await this.http.post(url, data, config).toPromise().then(async response => {
+                    resolve(response.data);
+                }, error => {
+                    APP_LOGGER.error('Error Intellectus Api', error);
+                    reject(error);
+                });
+            } catch (err) {
+                APP_LOGGER.error('Error Intellectus Api', err);
+                reject(err);
+            }
+        })
+    }
+    
     import(fileData: UploadFileDto) {
         return new Promise(async (resolve, reject) => {
             try {
@@ -30,7 +54,7 @@ export class LogsRedcapService {
                 const sheet_name_list = workbook.SheetNames;
                 const xlData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
                 const url = process.env.REDCAP_HOST + process.env.REDCAP_PATH;
-                const data = `token=${this.token}&data=${xlData}&content=logs&format=json&returnFormat=json`;
+                const data = `token=${this.token}&data=${xlData}&content=user&format=json&returnFormat=json`;
                 const config = {
                     headers: {
                         'Content-Type': `application/x-www-form-urlencoded`,
@@ -39,55 +63,6 @@ export class LogsRedcapService {
                 }
                 await this.http.post(url, data, config).toPromise().then(async response => {
                     this.deleteFile(dir); // Eliminando archivo subido
-                    resolve(response.data);
-                }, error => {
-                    APP_LOGGER.error('Error initializing Intellectus Api', error);
-                    reject(error);
-                });
-            } catch (err) {
-                APP_LOGGER.error('Error initializing Intellectus Api', err);
-                reject(err);
-            }
-        })
-    }
-
-    export() {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const url = process.env.REDCAP_HOST + process.env.REDCAP_PATH;
-                const data = `token=${this.token}&content=logs&format=json&returnFormat=json`;
-                const config = {
-                    headers: {
-                        'Content-Type': `application/x-www-form-urlencoded`,
-                        'Accept': 'application/json'
-                    }
-                }
-                await this.http.post(url, data, config).toPromise().then(async response => {
-                    resolve(response.data);
-                }, error => {
-                    APP_LOGGER.error('Error initializing Intellectus Api', error);
-                    reject(error);
-                });
-            } catch (err) {
-                APP_LOGGER.error('Error initializing Intellectus Api', err);
-                reject(err);
-            }
-        })
-    }
-
-    delete(logss: LogsDeleteDto) {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const logssArray = logss.logs.split(',');
-                const url = process.env.REDCAP_HOST + process.env.REDCAP_PATH;
-                const data = `token=${this.token}&content=logs&logss=${logssArray}&format=json&returnFormat=json`;
-                const config = {
-                    headers: {
-                        'Content-Type': `application/x-www-form-urlencoded`,
-                        'Accept': 'application/json'
-                    }
-                }
-                await this.http.post(url, data, config).toPromise().then(async response => {
                     resolve(response.data);
                 }, error => {
                     APP_LOGGER.error('Error initializing Intellectus Api', error);

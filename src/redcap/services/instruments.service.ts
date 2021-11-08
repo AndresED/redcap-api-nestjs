@@ -78,7 +78,7 @@ export class InstrumentsRedcapService {
     delete(instrument: InstrumentsDeleteDto) {
         return new Promise(async (resolve, reject) => {
             try {
-                const instrumentArray = instrument.instrument.split(',');
+                const instrumentArray = instrument.instruments.split(',');
                 const url = process.env.REDCAP_HOST + process.env.REDCAP_PATH;
                 const data = `token=${this.token}&content=instrument&instrument=${instrumentArray}&format=json&returnFormat=json`;
                 const config = {

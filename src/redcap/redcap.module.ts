@@ -20,6 +20,16 @@ import { FieldNamesRedcapService } from './services/field.names.service';
 import { InstrumentsRedcapService } from './services/instruments.service';
 import { LogsRedcapService } from './services/logs.service';
 import { EventsRedcapService } from './services/events.service';
+import { MetadataController } from './controllers/metadata.controller';
+import { MetaDataRedcapService } from './services/metadata.service';
+import { RedcapService } from './services/redcap.service';
+import { RedcapController } from './controllers/redcap.controller';
+import { ReportsController } from './controllers/report.controller';
+import { ReportsRedcapService } from './services/reports.service';
+import { SurveyController } from './controllers/survey.controller';
+import { SurveyRedcapService } from './services/survey.service';
+import { UsersController } from './controllers/users.controller';
+import { UsersRedcapService } from './services/users.service';
 
 
 @Module({
@@ -32,7 +42,12 @@ import { EventsRedcapService } from './services/events.service';
     FieldNamesController,
     InstrumentsController,
     LogsController,
-    EventsController
+    EventsController,
+    MetadataController,
+    RedcapController,
+    ReportsController,
+    SurveyController,
+    UsersController
   ],
   providers: [
     ArmsRedcapService,
@@ -43,7 +58,12 @@ import { EventsRedcapService } from './services/events.service';
     FieldNamesRedcapService,
     InstrumentsRedcapService,
     LogsRedcapService,
-    EventsRedcapService
+    EventsRedcapService,
+    MetaDataRedcapService,
+    RedcapService,
+    ReportsRedcapService,
+    SurveyRedcapService,
+    UsersRedcapService,
   ],
   imports: [HttpModule],
 })
