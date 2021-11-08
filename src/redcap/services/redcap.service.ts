@@ -25,11 +25,11 @@ export class RedcapService {
                 await this.http.post(url, data, config).toPromise().then(async response => {
                     resolve(response.data);
                 }, error => {
-                    APP_LOGGER.error('Error initializing Intellectus Api', error);
+                    APP_LOGGER.error('Error Api', error);
                     reject(error);
                 });
             } catch (err) {
-                APP_LOGGER.error('Error initializing Intellectus Api', err);
+                APP_LOGGER.error('Error Api', err);
                 reject(err);
             }
         })
